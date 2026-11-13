@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>چیستان | Chistan Crossword</title>
+  <meta name="description" content="Chistan: a bilingual Persian and English crossword game with random, never-repeating puzzles across 9,999 levels that grow from tiny to huge.">
+  <meta name="theme-color" content="#e7eef0">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316316f'/%3E%3Cg fill='%23fcfefe'%3E%3Crect x='10' y='10' width='13' height='13' rx='3'/%3E%3Crect x='25.5' y='10' width='13' height='13' rx='3'/%3E%3Crect x='41' y='10' width='13' height='13' rx='3'/%3E%3Crect x='10' y='25.5' width='13' height='13' rx='3'/%3E%3Crect x='10' y='41' width='13' height='13' rx='3'/%3E%3Crect x='41' y='41' width='13' height='13' rx='3'/%3E%3C/g%3E%3Crect x='25.5' y='25.5' width='13' height='13' rx='3' fill='%23f4aa1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">پرش به محتوا</a>
+
+  <div class="app">
+    <header class="bar">
+      <button class="brand" id="btn-home" type="button">
+        <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+          <rect width="64" height="64" rx="14" fill="currentColor"/>
+          <g fill="var(--tile)">
+            <rect x="10" y="10" width="13" height="13" rx="3"/><rect x="25.5" y="10" width="13" height="13" rx="3"/>
+            <rect x="41" y="10" width="13" height="13" rx="3"/><rect x="10" y="25.5" width="13" height="13" rx="3"/>
+            <rect x="10" y="41" width="13" height="13" rx="3"/><rect x="41" y="41" width="13" height="13" rx="3"/>
+          </g>
+          <rect x="25.5" y="25.5" width="13" height="13" rx="3" fill="var(--saffron)"/>
+        </svg>
+        <span class="brand-name" data-i18n="appName">چیستان</span>
+      </button>
+
+      <div class="bar-tools">
+        <div class="seg" role="group" aria-label="Language / زبان" id="seg-lang">
+          <button type="button" data-lang="fa" lang="fa">فارسی</button>
+          <button type="button" data-lang="en" lang="en">English</button>
+        </div>
+        <button class="icon-btn" id="btn-theme" type="button" data-i18n-aria="theme" data-i18n-title="theme">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-help" type="button" data-i18n-aria="help" data-i18n-title="help">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2.9-1.2 1.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="16.6" r="1.1" fill="currentColor"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ============ HOME ============ -->
+      <section id="view-home" class="home">
+        <div class="hero">
+          <div class="title-tiles" id="title-tiles" aria-hidden="true"></div>
+          <h1 class="sr-only" data-i18n="appName">چیستان</h1>
+          <p class="tagline" data-i18n="tagline"></p>
+        </div>
+
+        <div class="entry">
+          <button class="next-card" id="next-level" type="button">
+            <span class="nc-label" data-i18n="nextUp"></span>
+            <span class="nc-num" id="nc-num"></span>
+            <span class="nc-meta" id="nc-meta"></span>
+            <span class="nc-go" id="nc-go"></span>
+          </button>
+          <button class="resume" id="resume" type="button" hidden>
+            <span class="resume-text">
+              <strong id="resume-title"></strong>
+              <span id="resume-sub"></span>
+            </span>
+            <svg class="chev" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="levels-head">
+          <h2 data-i18n="chooseLevel"></h2>
+          <p id="progress-text"></p>
+        </div>
+        <div class="meter" id="meter" role="progressbar" aria-valuemin="0" aria-valuemax="9999" aria-valuenow="0"><i id="meter-fill"></i></div>
+
+        <div class="level-nav">
+          <form class="jump" id="jump-form" novalidate>
+            <label for="jump-input" data-i18n="jumpLabel"></label>
+            <input id="jump-input" type="text" inputmode="numeric" maxlength="6" autocomplete="off" spellcheck="false">
+            <button class="btn primary" type="submit" data-i18n="jumpGo"></button>
+          </form>
+          <div class="pager">
+            <button class="btn icon-only" id="pg-prev" type="button" data-i18n-aria="prevChapter" data-i18n-title="prevChapter"><svg class="flip-rtl" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <select id="pg-select" data-i18n-aria="pickChapter"></select>
+            <button class="btn icon-only" id="pg-next" type="button" data-i18n-aria="nextChapter" data-i18n-title="nextChapter"><svg class="flip-rtl" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+        </div>
+
+        <div class="chapter-head">
+          <h3 id="chapter-title"></h3>
+          <p id="chapter-sub"></p>
+        </div>
+        <ol id="levels" class="levels"></ol>
+
+        <div class="pager pager-bottom">
+          <button class="btn" id="pg-prev2" type="button"><svg class="flip-rtl" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="prevChapter"></span></button>
+          <button class="btn" id="pg-next2" type="button"><span data-i18n="nextChapter"></span><svg class="flip-rtl" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </section>
+
+      <!-- ============ GAME ============ -->
+      <section id="view-game" class="game" hidden>
+        <div class="game-top">
+          <button class="btn ghost" id="btn-back" type="button">
+            <svg class="flip-rtl" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="back"></span>
+          </button>
+          <div class="game-title">
+            <span id="g-level" class="g-level"></span>
+            <span id="g-size" class="g-size"></span>
+          </div>
+          <div class="timer" id="timer" role="timer" aria-live="off">0:00</div>
+        </div>
+
+        <div class="game-body">
+          <div class="board-col">
+            <div class="clue-banner" id="clue-banner" aria-live="polite">
+              <span class="cb-tag" id="cb-tag"></span>
+              <span class="cb-text" id="cb-text"></span>
+            </div>
+
+            <div class="board-tools" id="board-tools" hidden>
+              <button class="icon-btn sm" id="zoom-out" type="button" data-i18n-aria="zoomOut" data-i18n-title="zoomOut"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+              <button class="icon-btn sm" id="zoom-fit" type="button" data-i18n-aria="zoomFit" data-i18n-title="zoomFit"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="icon-btn sm" id="zoom-in" type="button" data-i18n-aria="zoomIn" data-i18n-title="zoomIn"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+            </div>
+
+            <div class="board-wrap" id="board-wrap">
+              <div class="board-frame">
+                <div class="board" id="board" role="group" data-i18n-aria="boardLabel"></div>
+              </div>
+            </div>
+
+            <div class="tools">
+              <button class="btn primary" id="btn-check" type="button" data-i18n="check"></button>
+              <button class="btn" id="btn-hint-letter" type="button" data-i18n="hintLetter"></button>
+              <button class="btn" id="btn-hint-word" type="button" data-i18n="hintWord"></button>
+              <button class="btn" id="btn-clear" type="button" data-i18n="clear"></button>
+              <button class="btn" id="btn-solve" type="button" data-i18n="solveAll"></button>
+              <button class="btn" id="btn-new" type="button" data-i18n="newPuzzle"></button>
+            </div>
+
+            <div class="kbd" id="kbd"></div>
+          </div>
+
+          <aside class="clues" id="clues">
+            <section class="clue-block" id="clues-across">
+              <h3 data-i18n="across"></h3>
+              <ol></ol>
+            </section>
+            <section class="clue-block" id="clues-down">
+              <h3 data-i18n="down"></h3>
+              <ol></ol>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============ DIALOGS ============ -->
+  <dialog id="dlg-win" class="dlg">
+    <div class="dlg-body win">
+      <div class="win-tiles" id="win-tiles" aria-hidden="true"></div>
+      <h2 id="win-title"></h2>
+      <p id="win-body"></p>
+      <p id="win-extra" class="win-extra"></p>
+      <div class="dlg-actions">
+        <button class="btn primary" id="win-next" type="button"></button>
+        <button class="btn" id="win-again" type="button"></button>
+        <button class="btn ghost" id="win-home" type="button"></button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="dlg-help" class="dlg">
+    <form method="dialog" class="dlg-body">
+      <h2 id="help-title"></h2>
+      <ol class="help-steps" id="help-steps"></ol>
+      <div class="dlg-actions"><button class="btn primary" value="close" id="help-close"></button></div>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-confirm" class="dlg">
+    <form method="dialog" class="dlg-body">
+      <p id="confirm-msg" class="confirm-msg"></p>
+      <div class="dlg-actions">
+        <button class="btn primary" value="ok" id="confirm-ok"></button>
+        <button class="btn" value="cancel" id="confirm-cancel"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="busy" id="busy" hidden>
+    <div class="spin" aria-hidden="true"><i></i><i></i><i></i></div>
+    <p id="busy-text" role="status"></p>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <script src="js/words-fa.js"></script>
+  <script src="js/words-en.js"></script>
+  <script src="js/generator.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
